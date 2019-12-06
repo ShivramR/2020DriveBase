@@ -55,4 +55,21 @@ public class DriveBase extends Subsystem {
 
     @Override
     public void initDefaultCommand() { this.setDefaultCommand(new TankDrive()); }
+
+    public void setWheels(double right, double left){
+        rightSide.set(right);
+        leftSide.set(left);
+    }
+
+    public int getRightMotorPosition(){
+        return rightMasterMotor.getSelectedSensorPosition(0);
+    }
+
+    public int getLeftMotorPosition(){
+        return leftMasterMotor.getSelectedSensorPosition(0);
+    }
+
+    
+
+    
 }

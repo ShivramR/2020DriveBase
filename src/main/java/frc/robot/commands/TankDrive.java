@@ -3,6 +3,7 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.subsystems.Subsystems;
 import frc.robot.userinterface.UserInterface;
+import frc.robot.subsystems.*;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class TankDrive extends Command {
@@ -12,6 +13,7 @@ public class TankDrive extends Command {
     private static final double maxChangeSpeed = 0.035d;
     private static final double maxChangeRotation = 0.2d;
 
+
     public TankDrive() {
         super("TankDrive");
         requires(Subsystems.driveBase);
@@ -19,46 +21,63 @@ public class TankDrive extends Command {
 
     @Override
     protected void execute() {
-    //     double speed;
-    //     if (UserInterface.driverController.getRightJoystickY() < -.1) {
-    //         speed = -Math.pow(UserInterface.driverController.getRightJoystickY(), 2);
-    //     } else if (UserInterface.driverController.getRightJoystickY() > .1) {
-    //         speed = Math.pow(UserInterface.driverController.getRightJoystickY(), 2);
-    //     } else {
-    //         speed = 0.0d;
-    //     }
-    //     double speedDifference = speed - updatedSpeed;
-    //     if (speedDifference > maxChangeSpeed) {
-    //         speed = updatedSpeed + maxChangeSpeed;
+        double speed;
+        double rotation;
+        double speedDifference;
+        double rotationDifference;
 
-    //     } else if (speedDifference < -maxChangeSpeed) {
-    //         speed = updatedSpeed - maxChangeSpeed;
+        if (UserInterface.driverController.getRightJoystickY() < -.1) {
+            speed = -Math.pow(UserInterface.driverController.getRightJoystickY(), 2);
+        } 
+        else if (UserInterface.driverController.getRightJoystickY() > .1) {
+            speed = Math.pow(UserInterface.driverController.getRightJoystickY(), 2);
+        } 
+        else {
+            speed = 0.0d;
+        }
 
-    //     }
-    //     speed *= 1;
-    //     updatedSpeed = speed;
+        rotation = -Math.pow(UserInterface.driverController.getLeftJoystickX(), 3);
 
-    //     double rotation;
-    //     rotation = -Math.pow(UserInterface.driverController.getLeftJoystickX(), 3);
-    //     double rotationDifference = rotation - updatedRotation;
+        updatedSpeed = UserInterface.driverController.getRightJoystickY();
+        updatedRotation = UserInterface.driverController.getLeftJoystickX();
+        speedDifference = speed - updatedSpeed;
+        rotationDifference = rotation - updatedRotation;
 
-    //     if (rotationDifference > maxChangeRotation) {
-    //         rotation = updatedRotation + maxChangeRotation;
+        if (speedDifference > maxChangeSpeed){
+            speed = speed + maxChangeSpeed;
+        }
+        else if (speedDifference < -maxChangeSpeed){
+            speed = speed - maxChangeSpeed;
+        }
+        else {
+            speed = updatedSpeed;
+        }
 
-    //     } else if (rotationDifference < -maxChangeRotation) {
-    //         rotation = updatedRotation - maxChangeRotation;
+        if (rotationDifference > maxChangeRotation){
+            rotation = rotation + maxChangeRotation;
+        }
+        else if (rotationDifference < -maxChangeRotation){
+            rotation = rotation - maxChangeRotation;
+        }
+        else {
+            rotation = updatedRotation;
+        }
 
-    //     }
-    //     rotation *= 0.7;
-    //     updatedRotation = rotation;
+        if (speed >= 0.5){
+            speed = 0.5;
+        }
+        else if (speed <= -0.5){
+            speed = -0.5;
+        }
         
-        // SmartDashboard.putNumber("Motor Speed", speed);
-        // SmartDashboard.putNumber("Rotation Speed", rotation);
-        // SmartDashboard.putNumber("Speed Difference", speedDifference);
-        
+        if (rotation >= 5){
+            rotation = 5;
+        }
+        else if (rotation <= -5){
+            rotation = -5;
+        }
 
-        //Subsystems.driveBase.cheesyDrive.curvatureDrive(rotation, speed, true);
-
+        Subsystems.driveBase.cheesyDrive.curvatureDrive(speed, rotation, true);
     }
 
     @Override

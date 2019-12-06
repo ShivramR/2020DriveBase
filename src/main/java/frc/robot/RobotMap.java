@@ -13,11 +13,11 @@ public class RobotMap {
      */
 
     // Talon/Victor IDS2
-    public static final int leftMasterMotor = (compBot) ? 1 : 40;
-    public static final int leftFollower1 = (compBot) ? 2 : 44;
-    public static final int leftFollower2 = (compBot) ? 3 : 21;
-    public static final int rightMasterMotor = (compBot) ? 4 : 39;
-    public static final int rightFollower1 = (compBot) ? 5 : 42;
+    public static final int leftMasterMotor = (compBot) ? 13 : 40;
+    public static final int leftFollower1 = (compBot) ? 5 : 44;
+    public static final int leftFollower2 = (compBot) ? 4 : 21;
+    public static final int rightMasterMotor = (compBot) ? 2 : 39;
+    public static final int rightFollower1 = (compBot) ? 9 : 42;
     public static final int rightFollower2 = (compBot) ? 6 : 46;
     public static final int intakePivot = (compBot) ? 43 : 16;
     public static final int intakeLeftArm = (compBot) ? 9 : 12;
